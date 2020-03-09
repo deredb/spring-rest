@@ -1,12 +1,22 @@
 package com.dere.rest.restspring.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 
 @Entity
@@ -24,6 +34,13 @@ public class Author {
 	@Column(name="last_name")
 	@NotNull(message="Provide valid first name")
 	private String lastName;
+	
+	@JsonManagedReference
+	@OneToMany(mappedBy  = "author", 
+			cascade=CascadeType.ALL, 
+			orphanRemoval = true
+			)
+	private List<Book> books = new ArrayList<Book>();
 	
 	public Author() {
 		
@@ -59,7 +76,23 @@ public class Author {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+
+	public List<Book> getBooks() {
+		return books;
+	}
+
+	public void setBooks(List<Book> books) {
+		this.books = books;
+	}
 	
+	public void addBook(Book book) {
+		books.add(book);
+	}
+	
+	public void removeBook(Book book) {
+		books.remove(book);
+		book.setAuthor(null);
+	}
 	
 	
 }

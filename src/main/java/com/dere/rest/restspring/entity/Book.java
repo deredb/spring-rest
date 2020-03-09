@@ -11,6 +11,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
 @Table(name="books")
 public class Book {
@@ -20,9 +24,11 @@ public class Book {
 	@Column(name="book_id")
 	private int id;
 	
+
 	@ManyToOne()
 	@NotNull(message="Provide valid author")
 	@JoinColumn(name="author_id")
+	@JsonBackReference
 	private Author author;
 	
 	@NotNull(message="Book title cannot be null")
@@ -59,6 +65,7 @@ public class Book {
 
 	public void setAuthor(Author author) {
 		this.author = author;
+		author.addBook(this);
 	}
 
 	public String getTitle() {

@@ -1,5 +1,7 @@
 package com.dere.rest.restspring.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import javax.persistence.EntityManager;
@@ -7,10 +9,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.dere.rest.restspring.entity.Author;
 import com.dere.rest.restspring.entity.Book;
@@ -69,14 +69,24 @@ public class AuthorService {
 	
 	public void deleteAuthorById(Integer id) {
 		Author dbAuthor = this.findById(id);
-		Query query = this.entityManager.createQuery("Delete from Book b where b.author.id=:id");
-		query.setParameter("id", id).executeUpdate();
 		this.authorRepository.delete(dbAuthor);
 	}
 	
-	public Book createBookByAuthorId(Integer id, Book theBook) {
+	public void createBookByAuthorId(Integer id, Book theBook) {
 		Author dbAuthor = this.findById(id);
 		theBook.setAuthor(dbAuthor);
-		return this.bookService.createBook(theBook);
+		this.bookService.createBook(theBook);
+		
+	}
+	
+	public List<Book> getBooksByAuthorId(Integer id) {
+		List<Book> booksByAuthorId = new ArrayList<Book>();
+		this.bookService.getAllBooks().forEach(book -> {
+			if(book.getAuthor().getId().equals(id)) {
+				booksByAuthorId.add(book);
+			}
+			
+		});
+		return booksByAuthorId;
 	}
 }

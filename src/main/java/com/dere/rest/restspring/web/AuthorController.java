@@ -1,5 +1,7 @@
 package com.dere.rest.restspring.web;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -57,4 +59,8 @@ public class AuthorController {
 		this.authorService.createBookByAuthorId(id, theBook);
 	}
 	
+	@GetMapping("{id}/books")
+	public List<Book> getBookByAuthorId(@PathVariable(name="id") Integer id) {
+		return this.authorService.getBooksByAuthorId(id);
+	}
 }
