@@ -14,12 +14,11 @@ public class StringtoDateConverter implements Converter<String, LocalDate> {
 		
 		try {
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-			LocalDate date = LocalDate.parse(source, formatter);
-			return date;
+			LocalDate localDate = LocalDate.parse(source, formatter);
+			return localDate;
 		} catch (DateTimeParseException e) {
 			throw e;
 		}
-		//return null;
 	}
 
 }
