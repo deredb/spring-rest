@@ -1,5 +1,8 @@
 package com.dere.rest.restspring.entity;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -37,13 +40,13 @@ public class Book {
 	
 	@NotNull(message="Publication year cannot be null")
 	@Column(name="publication_year")
-	private String pubYear;
+	private LocalDate pubYear;
 	
 	protected Book() {
 		
 	}
 
-	public Book(int id, Author author, String title, String pubYear) {
+	public Book(int id, Author author, String title, LocalDate pubYear) {
 		super();
 		this.id = id;
 		this.author = author;
@@ -76,11 +79,11 @@ public class Book {
 		this.title = title;
 	}
 
-	public String getPubYear() {
+	public LocalDate getPubYear() {
 		return pubYear;
 	}
 
-	public void setPubYear(String pubYear) {
+	public void setPubYear(LocalDate pubYear) {
 		this.pubYear = pubYear;
 	}
 
