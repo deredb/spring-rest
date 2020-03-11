@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.dere.rest.restspring.entity.Author;
 import com.dere.rest.restspring.entity.Book;
+import com.dere.rest.restspring.exceptions.RecordNotFoundException;
 import com.dere.rest.restspring.repo.AuthorRepository;
 
 @Service
@@ -37,10 +38,10 @@ public class AuthorService {
 	public Author findById(Integer id) {
 		
 		return this.authorRepository.findById(id).orElseThrow(() ->{
-			return new NoSuchElementException("Book does not exist " + id );
+			return new RecordNotFoundException("User is not found");
 		});
 	}
-	
+
 	
 	public Author createAuthor(Author theAuthor) {
 	
