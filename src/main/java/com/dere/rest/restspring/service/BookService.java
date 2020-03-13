@@ -5,7 +5,6 @@ import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.dere.rest.restspring.entity.Author;
 import com.dere.rest.restspring.entity.Book;
 import com.dere.rest.restspring.repo.BookRepository;
 

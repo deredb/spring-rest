@@ -14,11 +14,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
 
 @Entity
 @Table(name="authors")
@@ -33,7 +28,7 @@ public class Author {
 	private String firstName;
 	
 	@Column(name="last_name")
-	@NotNull(message="Provide valid first name")
+	@NotNull(message="Provide valid last name")
 	private String lastName;
 	
 	@JsonManagedReference
